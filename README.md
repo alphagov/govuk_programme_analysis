@@ -1,7 +1,7 @@
 
 # Intro
 
-This is a simple script that scrapes the rates of 2xx, 3xx, 4xx and 5xx status codes for various [apps](#apps) from [GOV.UK graphite](https://graphite.publishing.service.gov.uk/). These rates are then saved as a .csv file with the format:
+This is a simple script that scrapes the rates of 2xx, 3xx, 4xx and 5xx status codes for various [apps](#the-apps) from [GOV.UK graphite](https://graphite.publishing.service.gov.uk/). These rates are then saved as a .csv file with the format:
 ```
 name, timestamp, 2xx, 3xx, 4xx, 5xx
 ```
@@ -22,7 +22,7 @@ or copy just the [raw script](raw_script)
 [raw_script]: https://raw.githubusercontent.com/alphagov/govuk_programme_analysis/master/status_rates.py
 ## Usage
 
-This should be run using python from this directory:
+This should be run from the terminal using python from this directory:
 ```bash
 cd ~/govuk/govuk_programme_analysis # Or where ever you've copied the script
 python status_rates.py
