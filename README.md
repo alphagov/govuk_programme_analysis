@@ -12,10 +12,19 @@ This script requires python 2.7+ but only uses packages from the standard librar
 
 ## Installation
 
+Either clone this directory:
+```bash
+git clone git@github.com:alphagov/govuk_programme_analysis.git
+```
+
+or copy just the [raw script](raw_script)
+
+[raw_script]: https://raw.githubusercontent.com/alphagov/govuk_programme_analysis/master/status_rates.py
 ## Usage
 
-This should be run using python:
+This should be run using python from this directory:
 ```bash
+cd ~/govuk/govuk_programme_analysis # Or where ever you've copied the script
 python status_rates.py
 ```
 
