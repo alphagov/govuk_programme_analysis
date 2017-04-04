@@ -126,11 +126,9 @@ def get_url(host_path, app_path, status_suffix):
           'from=-2weeks&',      # Start of the window
           'until=-1weeks&',     # End of the window
           'target=sumSeries(',  # Create a single value (summed over all servers)
-            'summarize(',       # Summarise the week's stats
+            'hitcount(',        # Estimate the count
               path, ',',        # The set of stats we want
-              '"1week",',       # The window we're using
-              '"sum",',         # How to treat the values (NB the "s are required)
-              'True',           # Align buckets to the window
+              '"1week"',       # The window we're using
           '))&',                # Close
           'format=json'         # We want json
         ])

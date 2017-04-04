@@ -1,7 +1,7 @@
 
 # Intro
 
-This is a simple script that scrapes the rates of 2xx, 3xx, 4xx and 5xx status codes for various [apps](#the-apps) from [GOV.UK graphite](https://graphite.publishing.service.gov.uk/). These rates are then saved as a .csv file with the format:
+This is a simple script that scrapes the counts of 2xx, 3xx, 4xx and 5xx status codes for various apps from [GOV.UK graphite](https://graphite.publishing.service.gov.uk/). These counts are then saved as a .csv file with the format:
 ```
 name, timestamp, 2xx, 3xx, 4xx, 5xx
 ```
@@ -17,15 +17,15 @@ Either clone this directory:
 git clone git@github.com:alphagov/govuk_programme_analysis.git
 ```
 
-or copy just the [raw script](raw_script)
+or copy just the [raw script](https://raw.githubusercontent.com/alphagov/govuk_programme_analysis/master/status_counts.py)
 
-[raw_script]: https://raw.githubusercontent.com/alphagov/govuk_programme_analysis/master/status_rates.py
+
 ## Usage
 
 This should be run from the terminal using python from this directory:
 ```bash
 cd ~/govuk/govuk_programme_analysis # Or where ever you've copied the script
-python status_rates.py
+python status_counts.py
 ```
 
 and produce output like:
@@ -47,22 +47,14 @@ The script uses python to make a series of calls to graphite's [render API](http
 
 The API call to graphite uses several parameters & functions:
 
-* **[from](render_from)=-2weeks** The start of the window to produce output for (set to 2 weeks ago)
-* **[until](render_from)=-1weeks** The end of the window to produce output for (set to 1 week ago)
-* **[target](render_target)=** What we want to produce output for
-    - **[sumSeries](func_sumSeries)** Sum over the given array of values (this wraps the summarize function)
-        + **[summarize](func_summarize)** For every target in the array re-bucket the date to the given size producing an array. This is called with the arguments:
-            * *stats-path* the path to the desired rate
-            * *intervalString*: 1week size of the new buckets to use
-            * *func*: sum - we want to sum over the over the new buckets (of which there should be one)
-            * *alignToFrom*: True we want it to treat the start of the window as the start of a bucket
-* **[format](render_json)=json** We want json formatted output
-
-[render_from]: http://graphite.readthedocs.io/en/latest/render_api.html#from-until
-[render_target]: http://graphite.readthedocs.io/en/latest/render_api.html#target
-[func_sumSeries]: http://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.sumSeries
-[func_summarize]: http://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.summarize
-[render_json]: http://graphite.readthedocs.io/en/latest/render_api.html#json
+* **[from](http://graphite.readthedocs.io/en/latest/render_api.html#from-until)=-2weeks** The start of the window to produce output for (set to 2 weeks ago)
+* **[until](http://graphite.readthedocs.io/en/latest/render_api.html#from-until)=-1weeks** The end of the window to produce output for (set to 1 week ago)
+* **[target](http://graphite.readthedocs.io/en/latest/render_api.html#target)=** What we want to produce output for
+    - **[sumSeries](http://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.sumSeries)** Sum over the given array of values (this wraps the summarize function)
+        + **[hitcount](http://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.hitcount)** Estimate the counts of events recorded as rates in the stats-path.
+            * *stats-path* which path to estimate for
+            * *intervalString*: the interval to estimate for (value: 1week)
+* **[format](http://graphite.readthedocs.io/en/latest/render_api.html#json)=json** We want json formatted output
 
 ### Graphite paths
 
@@ -72,9 +64,8 @@ Graphite uses .-deliminated paths to organise its metrics. For each app/status c
 * The app-path
 * The status code
 
-The hosts are of the form `stats.hostname-*.nginx_logs` where the hostname is something like `frontend` the `*` is a [wildcard](render_target) that indicates to graphite that it should aggregate over all of the hosts of that name (for example `frontend-1`, `frontend-2`). The app-path is the full name of the app (for example `calculators_publishing_service_gov_uk`) and the status code is, for example: `http_2xx`.
+The hosts are of the form `stats.hostname-*.nginx_logs` where the hostname is something like `frontend` the `*` is a [wildcard](http://graphite.readthedocs.io/en/latest/render_api.html#target) that indicates to graphite that it should aggregate over all of the hosts of that name (for example `frontend-1`, `frontend-2`). The app-path is the full name of the app (for example `calculators_publishing_service_gov_uk`) and the status code is, for example: `http_2xx`.
 
-[render_target]: http://graphite.readthedocs.io/en/latest/render_api.html#target
 
 ## The apps
 
