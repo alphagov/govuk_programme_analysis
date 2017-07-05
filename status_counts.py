@@ -28,7 +28,6 @@ apps = {
     'Asset Manager': 'asset-manager_publishing_service_gov_uk',
     'Collections Publisher': 'collections-publisher_publishing_service_gov_uk',
     'Contacts Admin': 'contacts-admin_publishing_service_gov_uk',
-    'Content API': 'contentapi_publishing_service_gov_uk',
     'Content performance manager': 'content-performance-manager_publishing_service_gov_uk',
     'Content Tagger': 'content-tagger_publishing_service_gov_uk',
     'Email Alert Api': 'email-alert-api_publishing_service_gov_uk',
